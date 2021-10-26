@@ -88,15 +88,24 @@ function DetectarColision(){
     if(tocoRoca){
         gameOver();
     }
-    if(puntaje == 5){
+    if(puntaje == 5 && level == 1){
         cambioLevel();
     }
 }
 
 function cambioLevel(){
         level++;
-        enemy.style.setProperty('animation-duration', '2.5s');
-        document.querySelector(".fondo").style.setProperty("background-image", 'url("./sites/img/background2.png")');
+        enemy.classList.remove("lento");
+        enemy.classList.remove("stone");
+        enemy.classList.remove("spike");
+        ring.classList.remove("ring");  
+        document.querySelector("#level").textContent = "- Level" + level;
+        document.querySelector("#gameover").textContent = "Level " + level;
+        setTimeout(function(){
+            document.querySelector("#gameover").textContent = "";
+            enemy.style.setProperty('animation-duration', '2.5s');
+            document.querySelector(".fondo").style.setProperty("background-image", 'url("./sites/img/background2.png")');
+            },1000)
 }
 
 function gameOver(){
@@ -151,6 +160,9 @@ function iniciarJuego(){
         let rand = Math.round(Math.random() * (3000 - 500)) + 500;
         setTimeout(function() {
             if(!tocoRoca){
+                if(puntaje == 5 && level == 1){
+                    setTimeout(2000)
+                }
                 aparicionStone(rand);
                 loop();
             }
