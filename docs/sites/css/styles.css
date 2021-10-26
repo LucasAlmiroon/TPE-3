@@ -1,0 +1,171 @@
+@font-face{
+    font-family: NiseSegaSonic;
+    src: url("font/NiseSegaSonic.TTF");
+}
+@keyframes fondo{
+    0%{
+        background-position: 0px;
+    }
+    100%{
+        background-position: -1927px;
+    }
+}
+
+@keyframes enemigo {
+    0%{
+        left: 90%;
+    }
+
+    100%{
+        left: -50%;
+    }
+    
+}
+@keyframes anillo {
+    0%{
+        background-position: 0px;
+        left: 90%;
+    }
+
+    100%{
+        left: -10%;
+        background-position: -400px;
+    }
+    
+}
+@keyframes saltando {
+    0%{
+        top: 57%;
+        background-position: 0px 0px;
+    }
+    50%{
+        top: 20%;
+        background-position: 0px -705px;
+    }
+    100%{
+        top: 57%;
+        background-position: 0px 0px;
+    }
+}
+@keyframes corriendo{
+    0%{
+        background-position: 0px;
+    }
+    100%{
+        background-position: -705px;
+    }
+}
+
+body{
+    background-image: url("../img/bodyBackground.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.botonPrincipal{
+    margin: 0% 0% 0% 45%;
+}
+.corriendo{
+    background-image: url("../img/Sonic.png");
+    animation: corriendo 0.3s steps(6) infinite;
+}
+.saltando {
+    width: 150px;
+    height: 117.5px;
+    background-image: url("../img/saltando.png");
+    animation: saltando 1s steps(6);
+    animation-iteration-count: 1;
+}
+.muerte{
+    background-image: url("../img/muerte.png");
+    animation: corriendo 1s steps(2);
+    animation-iteration-count: 1;
+}
+.corriendo,.muerte{
+    width: 117.5px;
+    height: 150px;
+    
+}
+.corriendo,.muerte,.saltando{
+    position: absolute;
+    top: 57%;
+    z-index: 1;
+    
+}
+.parallax1{
+    animation: fondo 4s linear infinite;
+}
+
+.parallax2{
+    animation: fondo 2s linear infinite;
+}
+.nubes{
+
+    height: 250px;
+    top: 10%;
+    background-image: url("../img/layer1.png");
+    z-index: 1;
+}
+.fondo{
+    height: 650px;
+    position: relative;
+    background-image: url("../img/fondo.png");
+        
+
+}
+.stone{
+    background-image: url("../img/Stone.png");
+}
+.spike{
+    
+    background-image: url("../img/Spike.png");
+}
+
+.esconder{
+    display: none;
+}
+
+.lento{
+    width: 90px;
+    height: 54px;
+    top: 68%;
+    position: absolute;
+    animation: enemigo;
+    animation-duration: 3.5s;
+}
+
+#gameover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ring{
+    width: 40px;
+    height: 40px;
+    top: 25%;
+    position: absolute;
+    background-image: url("../img/ring.png");
+    animation: anillo 2s steps(10);
+}
+
+label, h1,h3,h4{
+    font-family: NiseSegaSonic;
+    color: #2A2A57;
+}
+footer{
+
+    font-family: NiseSegaSonic;
+    color: #2A2A57;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+#logoSega{
+    width: 100px;
+    height: 100px;
+}
+audio{
+    display: none;
+}
