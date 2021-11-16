@@ -3,7 +3,6 @@ let enemy = document.querySelector(".enemy");
 let ring = document.querySelector(".coleccionable");
 
 let puntaje = 0;
-let level = 1;
 let tiempo = 0;
 let tColision;
 let temporizador;
@@ -11,7 +10,7 @@ let tocoRoca = false;
 
 personaje.addEventListener('keydown',saltoPersonaje);
 //Verifica si se apreto la flecha para arriba.
-document.body.onkeyup = function(e){
+document.body.onkeydown = function(e){
     if(e.keyCode == 87){
         saltoPersonaje()
     }
@@ -32,7 +31,7 @@ function aparicionStone(rand){
     if(!tocoRoca && !enemy.classList.contains("lento")){
         enemy.classList.add("lento");
 
-        if(rand < 1500){
+        if(rand < 350){
             enemy.classList.add("stone");
         }else{
             enemy.classList.add("spike");
@@ -64,10 +63,11 @@ function DetectarColision(){
     
     let top_ring = window.getComputedStyle(ring).getPropertyValue('top');
     let derecha_ring = window.getComputedStyle(ring).getPropertyValue('right');
+    console.log(derecha_ring);
    
     let izquierda_enemy = window.getComputedStyle(enemy).getPropertyValue('left');
 
-    if(!tocoRoca && derecha_ring != "auto" && ((parseInt(derecha_ring) - (parseInt(derecha_pj)) >= -15)) && (parseInt(top_ring) - parseInt(top_pj)) >= -10){
+    if(!tocoRoca && derecha_ring != "auto" && ((parseInt(derecha_ring) - (parseInt(derecha_pj)) >= -20 && parseInt(derecha_ring) - (parseInt(derecha_pj)) <= 100)) && (parseInt(top_ring) - parseInt(top_pj)) >= -10){
         puntaje++;
         document.querySelector("#coleccion").play();
         ring.classList.remove("ring");
@@ -88,25 +88,8 @@ function DetectarColision(){
     if(tocoRoca){
         gameOver();
     }
-    if(puntaje == 5 && level == 1){
-        cambioLevel();
-    }
 }
 
-function cambioLevel(){
-        level++;
-        enemy.classList.remove("lento");
-        enemy.classList.remove("stone");
-        enemy.classList.remove("spike");
-        ring.classList.remove("ring");  
-        document.querySelector("#level").textContent = "- Level" + level;
-        document.querySelector("#gameover").textContent = "Level " + level;
-        setTimeout(function(){
-            document.querySelector("#gameover").textContent = "";
-            enemy.style.setProperty('animation-duration', '2.5s');
-            document.querySelector(".fondo").style.setProperty("background-image", 'url("./sites/img/background2.png")');
-            },1000)
-}
 
 function gameOver(){
     document.querySelector("#perder").play();
@@ -124,7 +107,6 @@ function gameOver(){
 
 function iniciarJuego(){
     puntaje = 0;
-    level = 1;
     tiempo = 0;
     tocoRoca = false;
 
@@ -132,7 +114,6 @@ function iniciarJuego(){
         personaje.classList.remove("muerte");
         personaje.classList.add("corriendo");
         document.querySelector("#gameover").textContent = "";
-        document.querySelector(".fondo").style.setProperty("background-image", 'url("./sites/img/fondo.png")');
         enemy.style.setProperty('animation-duration', '3.5s');
     }
 
@@ -142,28 +123,18 @@ function iniciarJuego(){
     document.querySelector(".nubes").classList.add("parallax2");
     document.querySelector("#timer").textContent = "Tiempo: " + tiempo;
     document.querySelector("#score").textContent = "- Puntaje: " + puntaje;
-    document.querySelector("#level").textContent = "- Level" + level;
     
     tColision = setInterval(DetectarColision,0);
     //Uso dos set interval con random para que aparezcan dentro de los 3 segundos, tanto los anillos como las rocas.
     setInterval(function loop() {
-        let rand = Math.round(Math.random() * (3000 - 500)) + 500;
+        let rand = Math.round(Math.random() * (1000));
         setTimeout(function() {
-            if(!tocoRoca){
-                aparicionRing();
-                loop();
-            }
-        }, rand);
-    }());
-    
-    setInterval(function loop() {
-        let rand = Math.round(Math.random() * (3000 - 500)) + 500;
-        setTimeout(function() {
-            if(!tocoRoca){
-                if(puntaje == 5 && level == 1){
-                    setTimeout(2000)
-                }
+            if(!tocoRoca && rand < 700){
                 aparicionStone(rand);
+                loop();
+            
+            }else if (!tocoRoca){
+                aparicionRing();
                 loop();
             }
         }, rand);
@@ -177,4 +148,12 @@ function iniciarJuego(){
 
 
 document.querySelector('.empezar').addEventListener('click',iniciarJuego);
+
+document.querySelector('#background1').addEventListener('click', function(){
+    document.querySelector(".fondo").style.setProperty("background-image", 'url("./sites/img/fondo.png")');
+})
+
+document.querySelector('#background2').addEventListener('click', function(){
+    document.querySelector(".fondo").style.setProperty("background-image", 'url("./sites/img/background2.png")');
+})
 

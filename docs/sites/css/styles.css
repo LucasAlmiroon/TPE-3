@@ -13,7 +13,7 @@
 
 @keyframes enemigo {
     0%{
-        left: 90%;
+        left: 100%;
     }
 
     100%{
@@ -24,11 +24,9 @@
 @keyframes anillo {
     0%{
         background-position: 0px;
-        left: 90%;
     }
 
     100%{
-        left: -10%;
         background-position: -400px;
     }
     
@@ -102,7 +100,7 @@ body{
 .nubes{
 
     height: 250px;
-    top: 10%;
+    top: 1%;
     background-image: url("../img/layer1.png");
     z-index: 1;
 }
@@ -131,7 +129,7 @@ body{
     top: 68%;
     position: absolute;
     animation: enemigo;
-    animation-duration: 3.5s;
+    animation-duration: 5s;
 }
 
 #gameover{
@@ -146,7 +144,7 @@ body{
     top: 25%;
     position: absolute;
     background-image: url("../img/ring.png");
-    animation: anillo 2s steps(10);
+    animation: anillo 0.5s steps(5) infinite, enemigo 4s;
 }
 
 label, h1,h3,h4{
@@ -168,4 +166,10 @@ footer{
 }
 audio{
     display: none;
+}
+
+#background1 img, #background2 img{
+    width: 50%;
+    height: 50%;
+    background-size: cover;
 }
